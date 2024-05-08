@@ -9,42 +9,27 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var setTaskDone = &cobra.Command{
-	Use:   "done",
-	Short: "Set task as done",
-	Long: `Sets a task using the identifyer (eg: ABC-21) as done,
+var setTaskTodo = &cobra.Command{
+	Use:   "todo",
+	Short: "Set task as Todo",
+	Long: `Sets a task using the identifyer (eg: ABC-21) as todo,
 	
 	Example
-	linear-cli done ABC-01
+	linear-cli todo ABC-01
 	`,
-	Run: setIssueDone,
+	Run: setIssueTodo,
 }
 
 func init() {
-	rootCmd.AddCommand(setTaskDone)
+	rootCmd.AddCommand(setTaskTodo)
 }
 
-type getTaskRespnse struct {
-	IssueUpdate struct {
-		Success bool
-		Issue   struct {
-			Id         string
-			Title      string
-			Identifier string
-			State      struct {
-				Id   string
-				Name string
-			}
-		}
-	}
-}
-
-func setIssueDone(cmd *cobra.Command, args []string) {
+func setIssueTodo(cmd *cobra.Command, args []string) {
 	if len(args) == 0 {
 		fmt.Println("Please enter task identifier eg: ABC-12")
 		return
 	}
-	stateId := "7c4d9600-7c90-4f61-8bd3-004f1a89d489"
+	stateId := "9c419a81-d824-479d-963a-aa759e232659"
 	client := graphql.NewClient("https://api.linear.app/graphql")
 	query := fmt.Sprintf(`
 	mutation IssueUpdate {
