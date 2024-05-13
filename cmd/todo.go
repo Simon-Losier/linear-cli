@@ -34,7 +34,7 @@ func setIssueTodo(cmd *cobra.Command, args []string) {
 	query := fmt.Sprintf(`
 	mutation IssueUpdate {
 		issueUpdate(
-		  id: "SIM-91"
+		  id: "%s"
 		  input: {
 			stateId: "%s"
 		  }
@@ -51,7 +51,7 @@ func setIssueTodo(cmd *cobra.Command, args []string) {
 		  }
 		}
 	  }
-	`, stateId)
+	`, args[0], stateId)
 	request := graphql.NewRequest(query)
 	if os.Getenv("apiKey") == "" {
 		fmt.Println("Please enter api key to `apiKey` env variable")
